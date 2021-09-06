@@ -11,7 +11,7 @@ The International Telecommunication Union (ITU) is the United Nations specialize
 ### Dependencies
 
 * QGIS3>=3.0 Girona (available on Windows, macOS, Linux and Android) - [Download Page](https://qgis.org/en/site/forusers/download.html)
-* The graphical modeler is built into QGIS, so you don't have to download any other sofware. Further information about graphical modeler can be found [here](https://docs.qgis.org/3.16/en/docs/user_manual/processing/modeler.html).
+* The graphical modeler is built into QGIS, so you don't have to download other software. Further information about graphical modeler can be found [here](https://docs.qgis.org/3.16/en/docs/user_manual/processing/modeler.html).
 
 ### Executing Models
 
@@ -19,11 +19,7 @@ The International Telecommunication Union (ITU) is the United Nations specialize
 
 ## About School Connectivity Model
 
-This model runs a series of spatial analyzes to support the understanding of school connectivity and was created with the help of the QGIS graphical modeler. It uses school, telecom infrastructure (fiber nodes, base stations, mobile coverages), and census data as inputs. It provides distance information for each school on possible Internet provisioning options and population statistics with the preset distances around schools.
-
-YO CAN MODİFY THE FİELDS OF INPUTS İN THE REFACTORİNG STEP
-BURAYA ÇIKTILARI TEK TEK AÇIKLAYARAK VE BİR GÖRSEL İLE EKLE!
-TÜM FİELDLARI GÖZDEN GEÇİR!
+This model ran a series of spatial analyzes to support the understanding of school connectivity and was created with the help of the QGIS graphical modeler. It uses school, telecom infrastructure (fiber nodes, base stations, mobile coverages), and census data as inputs. It provides distance information for each school on possible Internet provisioning options and population statistics with the preset distances around schools.
 
 ### Inputs
 
@@ -41,9 +37,36 @@ TÜM FİELDLARI GÖZDEN GEÇİR!
 
 ### Be careful!!
   * ...about the CRS (Coordinate Reference System) of the project and inputs!! Model transform the raster inputs from any CRS to EPSG:4326, but you need to transform if the CRS of your vector files different
-  * ...if you want to change the buffer zone you need to give the unit in degrees!! It depends upon location on earth. Near the equator, 1 km ≅ 0.008°
-  * ...about the unique id of fiber nodes and school data. If they different than the above you need to check each step of the model.
+  * ...if you want to change the buffer zone, you need to give the unit in degrees!! It depends upon the location on earth. Near the equator, 1 km ≅ 0.008°
+  * ...about the unique id of fiber nodes and school data. If they are different than the above, you need to check each step of the model.
   * ...about the fields and the data type of them if you modify any of the indicator of vector datasets
+  * ...that, there are two school connectivity models available. One is based on school data collected by the Giga team ("schoolconnectivitygiga.model3"), and the other based on data from OpenStreetMap ("schoolconnectivityosm.model3").
+
+
+### Output
+
+The model creates a new vector point data based on the school input and adds the analyzes as new columns to the attributes table;
+
+| Attribute               | Description  |
+| ----------------------- | ------------ | 
+| fiber_node_distance     |  the distance of each school to the nearest fiber node in km |
+| nearest_school_distance   | the distance of each school to the nearest school node in km  |
+| Schools_within_1km   | number of schools in a circle with a radius of one km centering a school point  |
+| Schools_within_3km   | number of schools in a circle with a radius of three km centering a school point  |
+| Schools_within_10km   | number of schools in a circle with a radius of ten km centering a school point  |
+| nearest_LTE_id   | unique id automatically assigned to each base station by the model  |
+| nearest_LTE_distance   |  the distance of each school to the nearest LTE cell tower node in km |
+| nearest_UMTS_id   | unique id automatically assigned to each base station by the model  |
+| nearest_UMTS_distance   | the distance of each school to the nearest UMTS cell tower node in km  |
+| nearest_GSM_id   |  unique id automatically assigned to each base station by the model |
+| nearest_GSM_distance   |  the distance of each school to the nearest GSM cell tower node in km |
+| 2G   | Returns a boolean result based on the condition that the school point stays within the 2G coverage raster image; "0"=no, "1"=strong "2"=variable |
+| 3G   | Returns a boolean result based on the condition that the school point stays within the 3G coverage raster image; "0"=no, "1"=strong "2"=variable |
+| 4G   | Returns a boolean result based on the condition that the school point stays within the 4G coverage raster image; "0"=no, "1"=strong "2"=variable |
+| pop_within_1km   | number of total population in a circle with a radius of one km centering a school point  |
+| pop_within_3km   | number of total population in a circle with a radius of three km centering a school point  |
+| pop_within_7km   | number of total population in a circle with a radius of seven km centering a school point  |
+																
 
 ## License
 
