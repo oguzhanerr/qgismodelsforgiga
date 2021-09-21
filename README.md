@@ -39,11 +39,10 @@ This model ran a series of spatial analyzes to support the understanding of scho
   * ...about the CRS (Coordinate Reference System) of the project and inputs!! Model transform the raster inputs from any CRS to EPSG:4326, but you need to transform if the CRS of your vector files different
   * ...if you want to change the buffer zone, you need to give the unit in degrees!! It depends upon the location on earth. Near the equator, 1 km ≅ 0.008°
   * ...about the unique id of fiber nodes and school data. If they are different than the above, you need to check each step of the model.
-  * ...about the fields and the data type of them if you modify any of the indicator of vector datasets
-  * ...that, there are two school connectivity models available. One is based on school data collected by the Giga team ("schoolconnectivitygiga.model3"), and the other based on data from OpenStreetMap ("schoolconnectivityosm.model3").
+  * ...about the fields and the data type of them if you modify any of the indicator of vector datasets.
 
 
-### Output
+### Outputs
 
 The model creates a new vector point data based on the school input and adds the analyzes as new columns to the attributes table;
 
@@ -67,6 +66,33 @@ The model creates a new vector point data based on the school input and adds the
 | pop_within_3km   | number of total population in a circle with a radius of three km centering a school point  |
 | pop_within_7km   | number of total population in a circle with a radius of seven km centering a school point  |
 																
+## About Telco Infrastructure Gap Model
+
+This model runs a series of spatial analyzes to find gaps in the country/region/state connectivity infrastructure, and it was created with the help of the QGIS graphical modeler. It uses territory boundaries, telecom infrastructure (fiber nodes, mobile coverage areas), and census data as input. Gives proportional outputs for each region that the population is covered by the mobile coverage, and the distance to the fiber nodes.
+
+### Inputs
+
+ 
+| Input        | Type   | Comment  |
+| ------------ | ------ | ------------ |
+| Fiber Nodes  | vector | point data, unique id = "ID"  |
+| Admin Boundaries  | vector | multipolygon data,  |
+| 2G Coverage  | raster | -  |
+| 3G Coverage  | raster | -  |
+| 4G Coverage  | raster | -  |
+| Population   | raster | -  |
+
+### Outputs
+
+
+| Attribute               | Description  |
+| ----------------------- | ------------ | 
+| fiberaway10     | the sum of the population that is at least 10 km away from the fiber nodes in the given administrative boundary level |
+| fiberaway25   | the sum of the population that is at least 25 km away from the fiber nodes in the given administrative boundary level|
+| 2G covered Population Stats   | the sum of the population that is covered by 2G  |
+| 3G covered Population Stats   | the sum of the population that is covered by 3G  |
+| 4G covered Population Stats   | the sum of the population that is covered by 4G  |
+
 
 ## License
 
